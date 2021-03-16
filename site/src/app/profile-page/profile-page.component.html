@@ -1,0 +1,212 @@
+
+<div class="container">
+    <div class="subnav pc">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+            <mat-button-toggle (click)='setDriverTrue()'>Водій</mat-button-toggle>
+            <mat-button-toggle (click)='setMechanicTrue()'>Механік</mat-button-toggle>
+        </mat-button-toggle-group>
+        <hr>
+        <div class="side-bar">
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" *ngIf='isDriver'> 
+                <mat-button-toggle (click)='setProfileTrue()'>Інформація про профіль</mat-button-toggle>
+                <mat-button-toggle (click)='setVehicleTrue()'>Мій транспорт</mat-button-toggle>
+                <mat-button-toggle (click)='setOrdersTrue()'>Мої замовлення</mat-button-toggle>
+            </mat-button-toggle-group>
+            
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" *ngIf='isMechanic'> 
+                <mat-button-toggle (click)='setMechVehicleTrue()'>Мій робочий транспорт</mat-button-toggle>
+                <mat-button-toggle (click)='setAcceptedOrdersTrue()'>Мої прийняті замовлення</mat-button-toggle>
+                <mat-button-toggle (click)='setOrderListTrue()'>Поточні замовлення</mat-button-toggle>
+                <mat-button-toggle (click)='setActiveOrderTrue()'>Активне замовлення</mat-button-toggle>                 
+            </mat-button-toggle-group>
+        </div>
+    </div>
+    <div class="subnav mobile">
+        <button (click)='showMobileSubmenu()'>icon</button>
+        <mat-button-toggle-group class='mobile-container' name="fontStyle" aria-label="Font Style">
+            <mat-button-toggle (click)='setDriverTrue()'>Водій</mat-button-toggle>
+            <mat-button-toggle (click)='setMechanicTrue()'>Механік</mat-button-toggle>
+        </mat-button-toggle-group>
+        <hr>
+        <div class="side-bar">
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" *ngIf='isDriver'> 
+                <mat-button-toggle (click)='setProfileTrue()'>Інформація про профіль</mat-button-toggle>
+                <mat-button-toggle (click)='setVehicleTrue()'>Мій транспорт</mat-button-toggle>
+                <mat-button-toggle (click)='setOrdersTrue()'>Мої замовлення</mat-button-toggle>
+            </mat-button-toggle-group>
+            
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" *ngIf='isMechanic'> 
+                <mat-button-toggle (click)='setMechVehicleTrue()'>Мій робочий транспорт</mat-button-toggle>
+                <mat-button-toggle (click)='setAcceptedOrdersTrue()'>Мої прийняті замовлення</mat-button-toggle>
+                <mat-button-toggle (click)='setOrderListTrue()'>Поточні замовлення</mat-button-toggle>
+                <mat-button-toggle (click)='setActiveOrderTrue()'>Активне замовлення</mat-button-toggle>                 
+            </mat-button-toggle-group>
+        </div>
+    </div>
+    
+    <div class="menu">
+        <div class="driver" *ngIf='isDriver'>
+            <div class="profile-info" *ngIf='isProfile'>
+                <!-- <form (ngSubmit)="saveProfileChanges($event)"> -->
+                    <mat-form-field>
+                        <mat-label>Ім'я</mat-label>
+                        <input [(ngModel)]="userData.firstname" matInput>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Прізвище</mat-label>
+                        <input [(ngModel)]="userData.lastname" matInput>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Адрес електронної пошти</mat-label>
+                        <input [(ngModel)]='userData.email' matInput>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Телефон</mat-label>
+                        <input [(ngModel)]='userData.phone' matInput>
+                    </mat-form-field>
+                    <button mat-stroked-button (click)='saveProfileChanges()'>Зберегти</button>
+                    <div class="message">{{message}}</div>
+                <!-- </form> -->
+            </div>
+            <div class="vehicle-info" *ngIf='isVehicle'>
+                <div class="vehicle" *ngFor='let vehicle of vehicles'>
+                    <mat-form-field *ngIf='vehicles[0].message !== "No vehicle found"'>
+                        <mat-label>Модель</mat-label>
+                        <input [(ngModel)]="vehicle.model" matInput>
+                    </mat-form-field>
+                    <mat-form-field *ngIf='vehicles[0].message !== "No vehicle found"'>
+                        <mat-label>Номер</mat-label>
+                        <input [(ngModel)]="vehicle.numbers" matInput>
+                    </mat-form-field>
+                    <button class='delete-button' mat-stroked-button (click)='deleteDriverVehicle(vehicle.id)' *ngIf='vehicles[0].message !== "No vehicle found"'> - </button>
+                </div>
+                <div class="add-driver-vehicle" *ngIf='!vehicles[0] || vehicles.length < 5'>
+                    <button mat-raised-button (click)='createDriverVehicle()'> + </button>
+                </div>
+                <button class='save-button' mat-stroked-button (click)='saveProfileChanges()'>Зберегти</button>
+                <div class="message">{{message}}</div>
+            </div>
+            <div class="orders-info" *ngIf='isOrders'>
+                <div class="order" *ngFor='let order of orders'>
+                    <mat-list>
+                        <mat-list-item><strong>Локація: &nbsp;</strong><span> {{order.location}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Попис:&nbsp; </strong><span> {{order.description}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Техніка:&nbsp; </strong><span> {{order.vehicle}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Номер техніки: &nbsp;</strong><span> {{order.vehicle_number}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Дата: &nbsp;</strong><span> {{order.date | date}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Статус: &nbsp;</strong><span> {{order.status}}</span></mat-list-item>
+                    </mat-list> 
+                </div>
+            </div>
+        </div>
+        <div class="mechanic" *ngIf='isMechanic'>
+            <div class="vehicle-info" *ngIf='isMechVehicle'>
+                <div class="vehicle" *ngFor='let mechanicVehicle of mechanicVehicles'>
+                    <mat-form-field *ngIf='mechanicVehicles[0].message !== "No vehicle found"'>
+                        <mat-label>Модель</mat-label>
+                        <input [(ngModel)]="mechanicVehicle.model" matInput>
+                    </mat-form-field>
+                    <mat-form-field *ngIf='mechanicVehicles[0].message !== "No vehicle found"'>
+                        <mat-label>Номер</mat-label>
+                        <input [(ngModel)]="mechanicVehicle.numbers" matInput>
+                    </mat-form-field>
+                    <button class='delete-button' mat-raised-button (click)='deleteMechanicVehicle(mechanicVehicle.id)' *ngIf='mechanicVehicles[0].message !== "No vehicle found"'> - </button>
+                    
+                </div>
+                <div class="add-mechanic-vehicle" *ngIf='mechanicVehicles[0].message == "No vehicle found" || mechanicVehicles.length < 5'>
+                    <button mat-raised-button (click)='createMechanicVehicle()'> + </button>
+                </div>
+                <button class='save-button' mat-stroked-button (click)='saveMechanicVehicles()'>Зберегти</button>
+            </div>
+            <div class="orders-info" *ngIf='isAcceptedOrders'>
+                <div class="order" *ngFor='let mechanicOrder of mechanicOrders'>
+                    <mat-list *ngIf='mechanicOrders[0].message != "No orders found"'>
+                        <mat-list-item><strong>Локація: &nbsp;</strong><span> {{mechanicOrder.location}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Попис:&nbsp;</strong><span>{{mechanicOrder.description}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Техніка:&nbsp;</strong><span>{{mechanicOrder.vehicle}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Номер техніки: &nbsp;</strong><span>{{mechanicOrder.vehicle_number}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Дата: &nbsp;</strong><span>{{mechanicOrder.date | date}}</span></mat-list-item>
+                    </mat-list> 
+                    <div *ngIf='mechanicOrders[0].message == "No orders found"'>Не знайдено вами прийнятих заказів</div>
+                </div>
+            </div>
+            <div class="orders-info" *ngIf='isOrderList'>
+                <div class='order-accepted-container' *ngIf='mechanicActiveOrder.message != "No orders found"'>
+                    <div class="order-accepted">
+                        <span>Ви можете прийняти тільки одне замовлення нараз.</span>
+                    </div>
+                </div>
+                <div *ngIf='mechanicActiveOrder.message == "No orders found"'>
+                    <div *ngIf='mechanicOrderList[0].message != "No orders found"'>
+                        
+                        <div class="order" *ngFor='let mechanicOrderItem of mechanicOrderList' >
+                            
+                            <mat-list>
+                                <mat-list-item><strong>Відстань: &nbsp;</strong><span>{{getDistance(prepareCoords(mechanicOrderItem.location), location.__zone_symbol__value) | metric}} км</span></mat-list-item>
+                                <mat-divider></mat-divider>
+                                <mat-list-item><strong>Попис:&nbsp;</strong><span>{{mechanicOrderItem.description}}</span></mat-list-item>
+                                <mat-divider></mat-divider>
+                                <mat-list-item><strong>Техніка:&nbsp;</strong><span>{{mechanicOrderItem.vehicle}}</span></mat-list-item>
+                                <mat-divider></mat-divider>
+                                <mat-list-item><strong>Номер техніки: &nbsp;</strong><span>{{mechanicOrderItem.vehicle_number}}</span></mat-list-item>
+                                <mat-divider></mat-divider>
+                                <mat-list-item><strong>Дата: &nbsp;</strong><span>{{mechanicOrderItem.date | date}}</span></mat-list-item>
+                                <mat-divider></mat-divider>
+                                <mat-list-item>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Ваша техніка</mat-label>
+                                        <select matNativeControl [(ngModel)]="chosenMechanicVehicle[mechanicOrderItem.id]" required>
+                                            <option value="" selected></option>
+                                            <option *ngFor="let mechanicVehicle of mechanicVehicles" [value]="mechanicVehicle.id">
+                                                {{mechanicVehicle.model}}
+                                            </option>
+                                        </select>
+                                      </mat-form-field>
+                                </mat-list-item>
+                                <mat-divider></mat-divider>
+                                <mat-list-item><button [disabled]='!chosenMechanicVehicle[mechanicOrderItem.id]' mat-stroked-button (click)='acceptOrder(mechanicOrderItem.id, chosenMechanicVehicle[mechanicOrderItem.id])'>Прийняти</button></mat-list-item>
+                            </mat-list> 
+                        </div>
+                    </div>
+                    <div class='no-order-list-container' *ngIf='mechanicOrderList[0].message == "No orders found"'>
+                        <div class="no-order-list">
+                            <span>Наразі неіснує активних замовлень у вашему регіоні.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="orders-info" *ngIf='isActiveOrder'>
+                <div class="order" *ngIf='mechanicActiveOrder.message != "No orders found"'>
+                    <mat-list>
+                        <mat-list-item><strong>Локація: &nbsp;</strong><span> map</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Попис:&nbsp;</strong><span>{{mechanicActiveOrder.description}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Техніка:&nbsp;</strong><span>{{mechanicActiveOrder.vehicle}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Номер техніки: &nbsp;</strong><span>{{mechanicActiveOrder.vehicle_number}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><strong>Дата: &nbsp;</strong><span>{{mechanicActiveOrder.date | date}}</span></mat-list-item>
+                        <mat-divider></mat-divider>
+                        
+                        <mat-list-item><button mat-raised-button (click)='doneOrder()'>Виконане</button></mat-list-item>
+                    </mat-list> 
+                </div>
+                <div class="no-order-container" *ngIf='mechanicActiveOrder.message == "No orders found"'>
+                    <div class="no-order">
+                        <span>Ви не прийняли замовлень.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

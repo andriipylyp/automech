@@ -1,0 +1,30 @@
+
+<nav class='main-nav'>
+  <a routerLink='/'>Головна</a>
+  <a routerLink='/about'>Про сервіс</a>
+  <a routerLink='/authorization' *ngIf='!isLoggedV else login'>Вхід/Реєстрація</a>
+  <ng-template #login>
+    <a routerLink='/new-order'>Нове замовлення</a>
+    <a routerLink='/profile'>Профіль</a>
+    <a (click)='deleleCookies()' routerLink='/' >Вийти</a>
+    
+  </ng-template>
+</nav>
+<div class='cover' (click)='ShowSideMenu()'></div>
+<div class="mobile-nav-button-div">
+  <a (click)='ShowSideMenu()'>&#9776;</a>
+</div>
+<div class='mobile-nav'>
+  <ul class='side-menu'>
+    <li><a routerLink='/' (click)='ShowSideMenu()'><span>Головна</span></a></li>
+    <li><a routerLink='/about' (click)='ShowSideMenu()'><span>Про сервіс</span></a></li>
+    <li><a routerLink='/authorization' (click)='ShowSideMenu()' *ngIf='!isLoggedV else loginmob'><span>Вхід/Реєстрація</span></a></li>
+    <ng-template #loginmob>
+      <li><a routerLink='/new-order' (click)='ShowSideMenu()'>Нове замовлення</a></li>
+      <li><a routerLink='/profile' (click)='ShowSideMenu()'>Профіль</a></li>
+      <li><a routerLink='/' (click)='mobileFunc()'><span>Вийти</span></a></li>
+    </ng-template>
+  </ul>
+</div>
+<router-outlet></router-outlet>
+<app-footer></app-footer>

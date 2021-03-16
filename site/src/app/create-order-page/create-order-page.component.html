@@ -1,0 +1,33 @@
+<form [formGroup]='form'>
+
+    <!-- Value: {{form.value | json}} -->
+    <!-- <hr> -->
+    <div class="container">
+        <mat-form-field appearance="fill">
+            <mat-label>Опис</mat-label>
+            <textarea matInput placeholder="Опишіть ситуацію" formControlName='description'></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Ваш транспортний засіб</mat-label>
+            <mat-select formControlName='vehicleSelect'>
+                    <mat-option *ngFor='let vehicle of vehicles' value="{{vehicle.id}}" >{{vehicle.model}}</mat-option>
+                    <mat-option value='-1'>Другий транспорт</mat-option>
+              </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf='this.form.value.vehicleSelect == -1' appearance="fill">
+            <mat-label>Модель</mat-label>
+            <input type="text" matInput formControlName='vehicleModel'>
+        </mat-form-field>
+        <mat-form-field *ngIf='this.form.value.vehicleSelect == -1' appearance="fill">
+            <mat-label>Номер транспорту</mat-label>
+            <input type="text" matInput formControlName='vehicleNumbers'>
+        </mat-form-field>
+        <button mat-stroked-button (click)='createOrder()'>Створити об'яву</button>
+    </div>
+    
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>Опис</mat-label>
+        <textarea matInput placeholder="Опишіть вашу ситуацію"></textarea>
+    </mat-form-field> -->
+
+</form>

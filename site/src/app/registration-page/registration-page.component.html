@@ -1,0 +1,33 @@
+<div class="container">
+    <form (submit)="onSubmit($event)">
+        <mat-form-field  appearance="fill">
+            <mat-label>Ваше ім'я</mat-label>
+            <input [(ngModel)]="firstnameField" placeholder="Напр. Сергій" (keyup)="checkIfAllFilled()" name="firstname" type="text" required matInput>
+        </mat-form-field><br>
+        <mat-form-field appearance="fill">
+            <mat-label>Ваше прізвище</mat-label>
+            <input [(ngModel)]="lastnameField" placeholder="Напр. Березнюк" (keyup)="checkIfAllFilled()" name="lastname" type="text" required matInput>
+        </mat-form-field><br>
+        <mat-form-field appearance="fill">
+            <mat-label>Ваш адрес електронної пошти</mat-label>
+            <input [(ngModel)]="emailField" placeholder="Напр. example@ex.mp" (keyup)="checkIfAllFilled()" name="email" type="email" required matInput>
+        </mat-form-field><br>
+        <mat-form-field appearance="fill">
+            <mat-label>Ваш пароль</mat-label>
+            <input [(ngModel)]="passwordField" placeholder="Напр. Aa12345$" (keyup)="checkIfAllFilled()" name="password" type="password" required matInput>
+        </mat-form-field><br>
+        <mat-form-field appearance="fill">
+            <mat-label>Повторіть пароль</mat-label>
+            <input [(ngModel)]="repeatField" name="repeatField" (keyup)="checkIfAllFilled()" required matInput>
+        </mat-form-field><br>
+        <mat-form-field appearance="fill">
+            <mat-label>Ваш телефон</mat-label>
+            <input [(ngModel)]="phoneField" placeholder="Напр. +380964490928" (keyup)="checkIfAllFilled()" name="phone" type="tel" required matInput>
+        </mat-form-field><br>
+        <div class="message">
+            {{message}}
+        </div><br>
+        <button [disabled]="isDisabled" type="submit"  mat-raised-button>Зареєструватись</button>
+         або <a routerLink="/authorization">увійти</a>
+    </form>
+</div>

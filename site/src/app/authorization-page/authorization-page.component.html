@@ -1,0 +1,20 @@
+<div class="container">
+    <form (submit)='onSubmit($event)'>
+        <mat-form-field appearance="fill">
+            <mat-label>Електронна пошта</mat-label>
+            <input [(ngModel)]="emailField" (keyup)="checkIfAllFilled()" name='email' type='email' required placeholder="Напр. example@exe.mpl" matInput>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Пароль</mat-label>
+            <input [(ngModel)]="passwordField" (keyup)="checkIfAllFilled()" name='password' type='password' required matInput>
+          </mat-form-field>
+          <br>
+          <div class="message">
+              {{message}}
+          </div>
+          <br>
+          <button type="submit" [disabled]="isDisabled" mat-raised-button>Увійти</button><span> або <a routerLink="/registration">зареєструватись</a></span>
+    </form>
+  </div>
+  

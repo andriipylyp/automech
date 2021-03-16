@@ -1,0 +1,187 @@
+.container {
+    @media screen and (max-width: 1024px){
+        display: block;
+    }
+    @media screen and (min-width: 1025px){
+        display: flex;
+    }
+    min-height: 100%;
+    display: flex;
+}
+
+.pc {
+    @media screen  and (max-width: 1024px){
+        &{
+            display: none;
+        }
+    }
+    @media screen  and (min-width: 1025px){
+        &{
+            display: block;
+        }
+    }
+}
+
+.mobile {
+    width: 100%;
+    .mobile-container {
+        width: 100%;
+    }
+    @media screen  and (max-width: 1024px){
+        &{
+            display: block;
+        }
+    }
+    @media screen  and (min-width: 1025px){
+        &{
+            display: none;
+        }
+    }
+}
+
+.menu {
+    width: 100%;
+    .profile-info{
+        @media screen and (min-width: 1025px){
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+            width: 28%;
+        }
+        @media screen and (max-width: 1024px){
+            margin: 10px;
+            width: auto;
+        }
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+       
+        mat-form-field {
+            width: 100%;
+        }
+    }
+}
+
+.orders-info{
+    .order-accepted-container, .no-order-container, .no-order-list-container{
+        display: flex;
+        .order-accepted, .no-order, .no-order-list{
+            margin-left: auto;
+                margin-right: auto;
+                margin-top: 20px;
+                padding: 10px;
+                background-color: white;
+                border-radius: 5px;
+                color: gray;
+        }
+    }
+    
+    .order{
+        background-color: white;
+        margin-top: 10px;
+        margin-right: 10px;
+        margin-left: 10px;
+        border-radius: 5px;
+        mat-list-item{
+            padding-top: 15px;
+            padding-bottom: 15px;
+            height: auto;
+        }
+    }
+}
+
+.vehicle-info{
+    .vehicle {
+        @media screen and (max-width: 1024px){
+            mat-form-field {
+                width: 100%;
+                &:first-child{
+                    margin-right: 0;
+                }
+                
+            }
+            & {
+                display: table;
+                padding-bottom: 10px;
+            }
+            .delete-button {
+                float:left;
+            }
+        }
+        @media screen and (min-width: 1025px){
+            mat-form-field {
+                width: auto;
+                &:first-child{
+                    margin-right: 15px;
+                }
+            }
+            & {
+                display: block;
+                padding-bottom: 0;
+            }
+            .delete-button{
+                float:right;
+            }
+        }
+        .delete-button{
+            
+            margin-top: 5px;
+            margin-right: 10%;
+        }
+        padding-left: 10px;
+        padding-top: 10px;
+        margin: 10px;
+        background-color: white;
+        border-radius: 5px;
+    }
+    .save-button {
+        margin-top: 5px;
+    }
+    .add-driver-vehicle, .save-button, .add-mechanic-vehicle{
+        margin-left: 10px;
+    }   
+}
+
+.order-list-info, .order{
+    .no-order-list, .no-order{
+        display: flex;
+        span{
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            color: gray;
+        }
+    }
+}
+
+.subnav{
+    @media screen and (max-width: 1024px){
+        width: 99%;
+        padding-top: 17px;
+    }
+    @media screen and (min-width: 1025px){
+        width: 15%;
+        padding-top: 0px;
+    }
+    background-color: white;
+    padding-right: 2px;
+    
+    mat-button-toggle-group {
+        width: 100%;
+        mat-button-toggle {
+            width: 50%;
+        }
+    }
+    .side-bar{
+        mat-button-toggle-group {
+            display: grid;
+            width: 100%;
+            mat-button-toggle {
+                width: 100%;
+            }
+        }
+    }
+}

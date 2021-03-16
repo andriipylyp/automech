@@ -1,0 +1,41 @@
+footer {
+    @media screen and (max-width: 1024px){
+        margin-top: 20px;
+    }
+    @media screen and (min-width: 1025px){
+        margin-top: 0;
+    }
+    width:100%;
+    background-color: black;
+    color: white;
+    // margin-top: 100px;
+    .links{
+        height: 300px;
+        display: inline-flex;
+        width: 100%;
+        .item{
+            margin: auto;
+            li{
+                list-style-type: none;
+                margin-top: 10px;
+                a{
+                    transition: 0.3s ease;
+                    color: white;
+                    text-decoration: none;
+                    &:hover{
+                        color: #3DD0AB;
+                    }
+                }
+            }
+            // &:last-child{
+                
+            // }
+            // &:first-child{
+            //     margin: auto;
+            // }
+            
+        }
+        // padding-right: 30%;
+        // padding-left: 30%;
+    }
+}

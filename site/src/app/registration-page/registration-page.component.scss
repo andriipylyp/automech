@@ -1,0 +1,27 @@
+.container{
+    padding-top: 100px;
+    width:100%;
+    display: flex;
+    form{
+        @media screen and (min-width: 1024px) {
+            &{
+                width: 20%;
+            }
+        }
+        @media screen and (max-width: 1023px) {
+            &{
+                width: 100%;
+            }
+        }
+        border-radius: 5px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: #fff;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+        mat-form-field{
+            width:100%;
+        }
+    }
+}
