@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "iNCZuJy7DyJ6Quv",
     database : "mech_db",
     insecureAuth : true
   });
@@ -146,7 +146,7 @@ app.put('/api/user/', (req, res) => {
     
 })
 
-app.get('/api/order/accept/:id', (req, res) => {
+app.get('/api/order/accept/:id/:vehicle_id', (req, res) => {
     const auth_key = req.get('Akey')
     if(auth_key !== 'undefined'){
         con.query(`SELECT id FROM users WHERE auth_key = '${auth_key}' AND paid = 1;`, function (err, result, fields) {
@@ -154,7 +154,7 @@ app.get('/api/order/accept/:id', (req, res) => {
             
             if(result.length > 0)
             {
-                con.query(`UPDATE orders SET accepted_id = '${result[0].id}', status = 'accepted' WHERE id = ${req.params.id};`, function (err, result, fields) {
+                con.query(`UPDATE orders SET accepted_id = '${result[0].id}', status = 'accepted', accepted_vehicle_id = ${req.params.vehicle_id} WHERE id = ${req.params.id};`, function (err, result, fields) {
                     // if(err) throw err
                     res.status(200).json({message: 'Success'})
                     return 
@@ -187,6 +187,8 @@ app.post('/api/user', (req, res) => {
                 phone: req.body.phone,
                 auth_key: tokgen51262.generate()
             }
+
+            console.log(user_data)
             
             con.query(`INSERT INTO mech_db.users VALUES ("${user_data.id}", "${user_data.firstname}", "${user_data.lastname}", "${user_data.email}", "${user_data.password}", "${user_data.phone}", NOW(), "${user_data.auth_key}", 0)`, function (err, result, fields) {
                 if (err) throw err
@@ -633,7 +635,7 @@ app.put('/api/vehicle/mechanic/:id', (req, res) => {
         con.query(`SELECT id FROM users WHERE auth_key = '${auth_key}' AND paid = 1`, (err, result, fields) =>{
             if (err) throw err
             if(result.length > 0){
-                con.query(`UPDATE TABLE vehicle SET model = '${req.body.model}', numbers = '${req.body.numbers}' WHERE user_id = '${result[0].id}' AND id = ${req.params.id}`, (err, result2, fields) =>{
+                con.query(`UPDATE vehicle SET model = '${req.body.model}', numbers = '${req.body.numbers}' WHERE user_id = '${result[0].id}' AND id = ${req.params.id}`, (err, result2, fields) =>{
                     if (err) throw err
                     res.status(200).json({message: 'Changed successfully'})
                     return
@@ -687,7 +689,6 @@ app.get('/api/orders/accepted', (req, res) => {
             if(result.length > 0){
                 con.query(`SELECT * FROM orders WHERE accepted_id = '${result[0].id}' AND status='accepted';`, (err, result2, fields) =>{
                     if (err) throw err
-                    // console.log(result2[0])
                     res.status(200).json(result2[0])
                     
                     return
@@ -753,4 +754,4 @@ app.get('/api/orders/non-accepted', (req, res) => {
     }
 })
 
-app.listen(3000, () => console.log('Server is running on port 3000'))
+app.listen(3002, () => console.log('Server is running on port 3002'))

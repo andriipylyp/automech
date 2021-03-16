@@ -4,7 +4,8 @@
   "description": "mech api",
   "main": "server-api.js",
   "scripts": {
-    "dev": "node-dev server-api.js"
+    "dev": "node-dev server-api.js",
+    "start": "node server-api.js"
   },
   "keywords": [
     "api"
